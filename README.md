@@ -1,2 +1,1 @@
-# polygon-survival
-nowy polygon
+# PolygonSurvival
