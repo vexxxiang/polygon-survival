@@ -28,7 +28,12 @@ public class TakeAndDrop : MonoBehaviour, IPointerClickHandler
 
         if (zajety == true && trzymam == false)
         {
-            
+            Debug.Log("if 1");
+
+            Trzymator.GetComponent<potrzymaj>().itemSprite2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite;
+            Trzymator.GetComponent<potrzymaj>().itemId2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId;
+            Trzymator.GetComponent<potrzymaj>().itemName2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName;
+            Trzymator.GetComponent<potrzymaj>().itemType2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType;
 
             Trzymator.GetComponent<potrzymaj>().itemSprite = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite;
             Trzymator.GetComponent<potrzymaj>().itemId = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId;
@@ -41,63 +46,82 @@ public class TakeAndDrop : MonoBehaviour, IPointerClickHandler
             gameObject.GetComponentInParent<SlotManager>().ItemId = 0;
             gameObject.GetComponentInParent<SlotManager>().ItemName = null;
             gameObject.GetComponentInParent<SlotManager>().ItemType = null;
-            Cursor.SetCursor(Trzymator.GetComponent<potrzymaj>().itemSprite.texture, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(Trzymator.GetComponent<potrzymaj>().itemSprite2.texture, Vector2.zero, CursorMode.Auto);
             gameObject.GetComponentInParent<SlotManager>().Zajety = false;
 
             zajety = false;
             Trzymator.GetComponent<potrzymaj>().trzymam = true;
+            Trzymator.GetComponent<potrzymaj>().ClickedObject = gameObject;
             
             return;
 
 
 
         }
-        if (zajety == false && trzymam == true)
+        else if (zajety == false && trzymam == true)
         {
-
-
-
-            gameObject.GetComponent<Image>().sprite = Trzymator.GetComponent<potrzymaj>().itemSprite; ;
-
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite = Trzymator.GetComponent<potrzymaj>().itemSprite;
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId = Trzymator.GetComponent<potrzymaj>().itemId;
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName = Trzymator.GetComponent<potrzymaj>().itemName;
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType = Trzymator.GetComponent<potrzymaj>().itemType;
+            Debug.Log("if 2");
 
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
+            gameObject.GetComponent<Image>().sprite = Trzymator.GetComponent<potrzymaj>().itemSprite2; ;
+
+            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite = Trzymator.GetComponent<potrzymaj>().itemSprite2;
+            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId = Trzymator.GetComponent<potrzymaj>().itemId2;
+            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName = Trzymator.GetComponent<potrzymaj>().itemName2;
+            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType = Trzymator.GetComponent<potrzymaj>().itemType2;
+
+
+
+
+
 
             gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().Zajety = true;
             zajety = true;
             Trzymator.GetComponent<potrzymaj>().trzymam = false;
         }
-        /*
-        if (zajety == true && trzymam == true)
+   
+        else if (zajety == true && trzymam == true)
         {
-            Debug.Log("klikam na " + gameObject);
+            if (gameObject != Trzymator.GetComponent<potrzymaj>().ClickedObject)
+            {
+
+                Debug.Log("if 3");
+
+                Cursor.SetCursor(gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite.texture, Vector2.zero, CursorMode.Auto);
+
+                gameObject.GetComponent<Image>().sprite = Trzymator.GetComponent<potrzymaj>().itemSprite2;
+
+                Trzymator.GetComponent<potrzymaj>().itemSprite2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite;
+                Trzymator.GetComponent<potrzymaj>().itemId2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId;
+                Trzymator.GetComponent<potrzymaj>().itemName2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName;
+                Trzymator.GetComponent<potrzymaj>().itemType2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType;
+
+                gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite = Trzymator.GetComponent<potrzymaj>().itemSprite;
+                gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId = Trzymator.GetComponent<potrzymaj>().itemId;
+                gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName = Trzymator.GetComponent<potrzymaj>().itemName;
+                gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType = Trzymator.GetComponent<potrzymaj>().itemType;
+                Trzymator.GetComponent<potrzymaj>().ClickedObject = gameObject;
+            }
+            
+
+            
+
+            
 
 
-            Trzymator.GetComponent<potrzymaj>().itemSprite2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite;
-            Trzymator.GetComponent<potrzymaj>().itemId2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId;
-            Trzymator.GetComponent<potrzymaj>().itemName2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName;
-            Trzymator.GetComponent<potrzymaj>().itemType2 = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType;
+            
 
-
-            gameObject.GetComponent<Image>().sprite = Trzymator.GetComponent<potrzymaj>().itemSprite; ;
-
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemSprite = Trzymator.GetComponent<potrzymaj>().itemSprite;
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemId = Trzymator.GetComponent<potrzymaj>().itemId;
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemName = Trzymator.GetComponent<potrzymaj>().itemName;
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().ItemType = Trzymator.GetComponent<potrzymaj>().itemType;
+            
      
-            Cursor.SetCursor(Trzymator.GetComponent<potrzymaj>().itemSprite2.texture, Vector2.zero, CursorMode.Auto);
+            
 
 
-            gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().Zajety = true;
-            zajety = true;
-            Trzymator.GetComponent<potrzymaj>().trzymam = false;
+            zajety = gameObject.GetComponentInParent<SlotManager>().GetComponent<SlotManager>().Zajety = true;
+            
+            Trzymator.GetComponent<potrzymaj>().trzymam = true;
         }
-        */
+  
 
     }
 
